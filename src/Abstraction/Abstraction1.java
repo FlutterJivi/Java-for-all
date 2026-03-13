@@ -28,6 +28,10 @@ class Dog extends Animal{
     void speak() {
         System.out.println(name + " bolta hai: woof woof");
     }
+
+    void printKaro(){
+        System.out.println(name + " khana kha raha hai");
+    }
 }
 
 class Cat extends Animal{
@@ -55,5 +59,20 @@ public class Abstraction1 {
    public static void main(String[] args) {
        Dog dog = new Dog("Tommy");
        Cat cat = new Cat("Wiskers");
+       Snake snake = new Snake("Nagraj");
+
+       dog.speak();
+       dog.printKaro();
+
+       Animal dog1 = new Dog("Tommy");
+       dog1.speak();
+//       dog1.prinrKaro(); hum ye nhi kar sakte bcz sab se pahele compiler iss ka reference type dekhega and iss mai wo method nhi hai toh wo runtime ka error show kar dega.
+
+       Animal[] animals = new Animal[]{dog1,cat,snake};
+       for (Animal animal : animals) {
+           animal.eat();
+           animal.speak();
+           animal.breathe();
+       }
     }
 }
