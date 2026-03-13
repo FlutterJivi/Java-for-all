@@ -1,0 +1,87 @@
+public static void main(String[] args) {
+    System.out.println("Main start");   // Line 1
+    new B();                            // Line 2
+    System.out.println("Main end");     // Line 3
+}
+```
+
+---
+
+## Line 1 — `System.out.println("Main start")`
+```
+JVM main() mein ghusa
+Stack pe main() ka frame bana
+System.out.println() call hua
+"Main start" print hua
+```
+
+Simple. Koi confusion nahi.
+
+---
+
+## Line 2 — `new B()` — Yahan Ruk. Depth Mein Ja.
+
+JVM ne `new B()` dekha. Ab JVM ke dimag mein exactly kya chala:
+
+### JVM Ka Pehla Sawaal — "Kya B load hai?"
+```
+JVM: "new B() — B ka object banana hai"
+JVM: "Ruk — pehle check karta hun — kya B already load hai?"
+JVM: "Nahi — pehli baar dekh raha hun B ko"
+JVM: "Toh pehle B ko load karna padega"
+```
+
+### JVM Ka Doosra Sawaal — "B ka parent kaun hai?"
+```
+JVM: "B load karne se pehle — B ka parent kaun hai?"
+JVM: ".class file padhi — parent hai A"
+JVM: "Kya A load hai?"
+JVM: "Nahi"
+JVM: "Toh pehle A load karo"
+```
+
+---
+
+## Class Loading — Exactly Kya Hota Hai
+
+### A Load Ho Rahi Hai
+```
+JVM ne A.class file disk se uthaya
+A ki information Method Area mein daali:
+  - A ke methods ka bytecode
+  - A ke fields ki info
+  - static variable: totalDogs etc
+
+Ab static blocks ki baari:
+
+static {
+    System.out.println("A static block 1");  ← CHALA
+}
+
+static {
+    System.out.println("A static block 2");  ← CHALA
+}
+
+A load complete.
+```
+
+### B Load Ho Rahi Hai
+```
+JVM ne B.class file disk se uthaya
+B ki information Method Area mein daali
+
+Ab static block ki baari:
+
+static {
+    System.out.println("B static block");   ← CHALA
+}
+
+B load complete.
+```
+
+### Ab Tak Ka Output:
+```
+Main start
+A static block 1
+A static block 2
+B static block
