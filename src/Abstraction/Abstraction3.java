@@ -16,7 +16,6 @@ abstract class Animal1 {
 
 class Animal2 extends Animal1{
     void eat(){
-
     }
 
     @Override
