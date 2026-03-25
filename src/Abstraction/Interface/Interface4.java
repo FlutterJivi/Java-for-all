@@ -149,6 +149,24 @@ class iPhone extends Phone implements Chargeable,GPSEnabled,Connectable{
 }
 public class Interface4 {
     static void main(String[] args) {
+        Samsung s24 = new Samsung("Galaxy S24 Ultra",12,256);
+        iPhone i15 = new iPhone("iPhone 15 Pro",8,128);
 
+        Phone[] phones = {s24,i15};
+        for (Phone phone : phones){
+            phone.showInfo();
+            phone.takePicture();
+            System.out.println("---");
+        }
+
+        Chargeable[] chargeables = {s24,i15};
+        for (Chargeable chargeable : chargeables){
+            System.out.println("Battery: " + chargeable.getBatteryLevel() + "%");
+            chargeable.charge();
+        }
+
+        GPSEnabled gpsEnabled = s24;
+        gpsEnabled.setDestination("Mumbai");
+        gpsEnabled.getLocation();
     }
 }
